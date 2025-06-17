@@ -1,0 +1,11 @@
+{
+  "name": "RS Jotai",
+  "short_name": "Réseau",
+  "lang": "fr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#079db1",
+  "orientation": "portrait-primary"
+}
