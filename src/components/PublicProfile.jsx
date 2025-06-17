@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import '../styles/components/_Profile.scss';
 
 const PublicProfile = () => {
   const { id } = useParams();
@@ -14,13 +15,13 @@ const PublicProfile = () => {
     load();
   }, [id]);
 
-  if (!user) return <p>Chargement...</p>;
+  if (!user) return <p className="profile__loading">Chargement...</p>;
 
   return (
-    <div>
-      <h2>Profil de {user.username}</h2>
-      <p>Email : {user.email}</p>
-      <p>Bio : {user.description || 'Pas de bio'}</p>
+    <div className="profile profile--public">
+      <h2 className="profile__title">Profil de {user.username}</h2>
+      <p><strong>Email :</strong> {user.email}</p>
+      <p><strong>Bio :</strong> {user.description || 'Pas de bio.'}</p>
     </div>
   );
 };

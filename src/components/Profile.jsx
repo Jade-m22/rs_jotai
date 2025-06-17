@@ -1,10 +1,11 @@
 import { useAtom } from 'jotai';
 import { userAtom } from '../atoms/user';
+import '../styles/components/_Profile.scss';
 
 const Profile = () => {
   const [user, setUser] = useAtom(userAtom);
 
-  if (!user) return <p>Non connecté</p>;
+  if (!user) return <p className="profile__not-connected">Non connecté</p>;
 
   const handleChange = (e) => {
     const newBio = e.target.value;
@@ -20,7 +21,7 @@ const Profile = () => {
       },
       body: JSON.stringify({
         username: user.username,
-        description: user.description
+        description: user.description,
       }),
     });
 
@@ -30,14 +31,17 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <h2>Profil de {user.username}</h2>
-      <input
+    <div className="profile">
+      <h2 className="profile__title">Profil de {user.username}</h2>
+      <textarea
         value={user.description || ''}
         onChange={handleChange}
-        placeholder="Ta bio ici"
+        placeholder="Ta bio ici..."
+        className="profile__textarea"
       />
-      <button onClick={handleSubmit}>Enregistrer</button>
+      <button className="profile__button" onClick={handleSubmit}>
+        Enregistrer
+      </button>
     </div>
   );
 };

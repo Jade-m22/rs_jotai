@@ -1,0 +1,50 @@
+.new-post {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 600px;
+  margin: 2rem auto;
+
+  &__welcome {
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: left;
+    color: #079db1;
+    margin-bottom: 0.5rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    button {
+      align-self: flex-end;
+      background-color: #079db1;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #026973;
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { useAtom } from 'jotai';
 import { userAtom } from '../atoms/user';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import '../styles/components/_AuthForm.scss';
 
 const Login = () => {
   const [, setUser] = useAtom(userAtom);
@@ -34,14 +35,13 @@ const Login = () => {
       } else {
         alert(data.error?.message || 'Erreur de connexion');
       }
-    // eslint-disable-next-line no-unused-vars
-    } catch (err) {
+    } catch {
       alert('Erreur de connexion');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="auth-form" onSubmit={handleSubmit}>
       <h2>Connexion</h2>
       <input type="email" name="email" placeholder="Email" required />
       <input type="password" name="password" placeholder="Mot de passe" required />

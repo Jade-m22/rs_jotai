@@ -3,6 +3,7 @@ import { postsAtom } from '../atoms/posts';
 import { userAtom } from '../atoms/user';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/components/_PostList.scss';
 
 const PostList = () => {
   const [posts, setPosts] = useAtom(postsAtom);
@@ -10,7 +11,9 @@ const PostList = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch('http://localhost:1337/api/posts?populate=author,users_likes&sort=createdAt:desc');
+      const res = await fetch(
+        'http://localhost:1337/api/posts?populate=author,users_likes&sort=createdAt:desc'
+      );
       const json = await res.json();
 
       const cleanPosts = json.data.map((p) => ({
@@ -80,33 +83,49 @@ const PostList = () => {
   };
 
   return (
-    <ul>
-      {posts.map((p) => {
-        const isLikedByUser = user && p.users_likes.includes(user.id);
+    <>
+      <h3 className="postlist__title">📰 Les dernières nouvelles</h3>
+      <ul className="post-list">
+        {posts.map((p) => {
+          const isLikedByUser = user && p.users_likes.includes(user.id);
 
-        return (
-          <li key={p.id}>
-            <strong>
-              <Link to={`/profile/${p.authorId}`}>{p.author}</Link>
-            </strong>{' '}
-            — {new Date(p.createdAt).toLocaleString()}
-            <p>{p.content}</p>
+          return (
+            <li key={p.id} className="post-item">
+              <div className="post-header">
+                <Link to={`/profile/${p.authorId}`} className="post-author">
+                  @{p.author}
+                </Link>
+                <span className="post-date">
+                  {new Date(p.createdAt).toLocaleString()}
+                </span>
+              </div>
 
-            {user && (
-              <p>
-                <button onClick={() => handleLike(p)}>
-                  {isLikedByUser ? '💔 Dislike' : '❤️ Like'} ({p.like})
-                </button>
-              </p>
-            )}
+              <p className="post-content">{p.content}</p>
 
-            {user?.id === p.authorId && (
-              <button onClick={() => handleDelete(p.id)}>🗑️ Supprimer</button>
-            )}
-          </li>
-        );
-      })}
-    </ul>
+              <div className="post-actions">
+                {user && (
+                  <button
+                    className={`like-button ${isLikedByUser ? 'liked' : ''}`}
+                    onClick={() => handleLike(p)}
+                  >
+                    {isLikedByUser ? '💔 Dislike' : '❤️ Like'} ({p.like})
+                  </button>
+                )}
+
+                {user?.id === p.authorId && (
+                  <button
+                    className="delete-button"
+                    onClick={() => handleDelete(p.id)}
+                  >
+                    🗑️ Supprimer
+                  </button>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 };
 
