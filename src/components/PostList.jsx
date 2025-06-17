@@ -81,23 +81,31 @@ const PostList = () => {
 
   return (
     <ul>
-      {posts.map((p) => (
-        <li key={p.id}>
-          <strong>
-            <Link to={`/profile/${p.authorId}`}>{p.author}</Link>
-          </strong>{' '}
-          — {new Date(p.createdAt).toLocaleString()}
-          <p>{p.content}</p>
+      {posts.map((p) => {
+        const isLikedByUser = user && p.users_likes.includes(user.id);
 
-          <button onClick={() => handleLike(p)}>
-            {p.users_likes.includes(user.id) ? '💔 Dislike' : '❤️ Like'} ({p.like})
-          </button>
+        return (
+          <li key={p.id}>
+            <strong>
+              <Link to={`/profile/${p.authorId}`}>{p.author}</Link>
+            </strong>{' '}
+            — {new Date(p.createdAt).toLocaleString()}
+            <p>{p.content}</p>
 
-          {user?.id === p.authorId && (
-            <button onClick={() => handleDelete(p.id)}>🗑️ Supprimer</button>
-          )}
-        </li>
-      ))}
+            {user && (
+              <p>
+                <button onClick={() => handleLike(p)}>
+                  {isLikedByUser ? '💔 Dislike' : '❤️ Like'} ({p.like})
+                </button>
+              </p>
+            )}
+
+            {user?.id === p.authorId && (
+              <button onClick={() => handleDelete(p.id)}>🗑️ Supprimer</button>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 };

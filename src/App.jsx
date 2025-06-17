@@ -9,15 +9,17 @@ import PublicProfile from './components/PublicProfile';
 import NewPost from './components/NewPost';
 import PostList from './components/PostList';
 import Navbar from './components/Navbar';
+import useAuth from './hooks/useAuth';
 
 const App = () => {
+  useAuth();
   const user = useAtomValue(userAtom);
 
   return (
     <div>
       <Navbar />
       <Routes>
-        <Route path="/" element={user ? <><NewPost /><PostList /></> : <Navigate to="/login" />} />
+        <Route path="/" element={ <> {user && <NewPost />} <PostList /></>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/me" element={<Profile />} />

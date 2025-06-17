@@ -1,6 +1,7 @@
 import { useAtom } from 'jotai';
 import { userAtom } from '../atoms/user';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const [, setUser] = useAtom(userAtom);
@@ -21,6 +22,7 @@ const Login = () => {
       const data = await res.json();
 
       if (data.user) {
+        Cookies.set('token', data.jwt, { path: '/' });
         setUser({
           jwt: data.jwt,
           id: data.user.id,
