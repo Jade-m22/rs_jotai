@@ -89,7 +89,6 @@ const Profile = () => {
               </div>
 
               <p className="post-content">{p.content}</p>
-              {/* Ici tu peux rajouter les boutons like/delete si tu veux */}
             </li>
           ))
         )}
