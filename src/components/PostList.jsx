@@ -92,9 +92,12 @@ const PostList = () => {
           return (
             <li key={p.id} className="post-item">
               <div className="post-header">
-                <Link to={`/profile/${p.authorId}`} className="post-author">
+                <Link to={user?.id === p.authorId ? '/me' : `/profile/${p.authorId}`}
+                    className="post-author"
+                  >
                   @{p.author}
                 </Link>
+
                 <span className="post-date">
                   {new Date(p.createdAt).toLocaleString()}
                 </span>
